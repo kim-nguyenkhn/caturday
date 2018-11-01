@@ -9,6 +9,8 @@ import { Constants } from "expo";
 import { createStackNavigator } from "react-navigation";
 import Button from "react-native-button";
 
+const COLOR_MAGENTA = "#ca2779";
+
 class HomeScreen extends React.Component {
   static navigationOptions = {
     title: "Caturday"
@@ -17,11 +19,8 @@ class HomeScreen extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View>
+      <View style={styles.container}>
         <View style={styles.statusBar} />
-        <View style={styles.navBar}>
-          <Text style={styles.navBarText}>Caturday</Text>
-        </View>
         <View style={styles.mainContent}>
           <View style={styles.buttonView}>
             <Button
@@ -54,14 +53,10 @@ class AddListScreen extends React.Component {
   }
 }
 
-const COLOR_MAGENTA = "#ca2779";
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
+    backgroundColor: "#fff"
   },
   statusBar: {
     height: Constants.statusBarHeight
@@ -84,8 +79,20 @@ const styles = StyleSheet.create({
 });
 
 // Define routes
-const App = createStackNavigator({
-  Home: { screen: HomeScreen },
-  AddList: { screen: AddListScreen }
-});
+const App = createStackNavigator(
+  {
+    Home: { screen: HomeScreen },
+    AddList: { screen: AddListScreen }
+  },
+  {
+    // Define shared header configs
+    initialRouteName: "Home",
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: COLOR_MAGENTA
+      },
+      headerTintColor: "#fff"
+    }
+  }
+);
 export default App;
