@@ -4,7 +4,7 @@
  */
 
 import React from "react";
-import { StyleSheet, Text, StatusBar, View } from "react-native";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 import { Constants } from "expo";
 import { createStackNavigator } from "react-navigation";
 import Button from "react-native-button";
@@ -44,10 +44,27 @@ class HomeScreen extends React.Component {
 }
 
 class AddListScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: navigation.getParam("listTitle")
+    };
+  };
+
+  state = {
+    listTitle: ""
+  };
   render() {
     return (
-      <View>
-        <Text> textInComponent </Text>
+      <View style={{ padding: 20 }}>
+        <TextInput
+          style={{ height: 40, fontSize: 20 }}
+          onChangeText={listTitle => {
+            this.setState({ listTitle });
+            this.props.navigation.setParams({ listTitle });
+          }}
+          placeholder="List name"
+          value={this.state.listTitle}
+        />
       </View>
     );
   }
