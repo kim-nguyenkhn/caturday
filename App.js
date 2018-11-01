@@ -1,15 +1,27 @@
+/**
+ * Notes:
+ * Expo StatusBar: https://docs.expo.io/versions/latest/guides/configuring-statusbar
+ */
+
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Button, Text, StatusBar, View } from "react-native";
+import { Constants } from "expo";
 
 class App extends React.Component {
+  handlePress = e => {
+    console.log("pressed");
+  };
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Helo worlsd!</Text>
+      <View>
+        <View style={styles.statusBar} />
       </View>
     );
   }
 }
+
+const COLOR_MAGENTA = "#ca2779";
 
 const styles = StyleSheet.create({
   container: {
@@ -17,6 +29,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center"
+  },
+  statusBar: {
+    height: Constants.statusBarHeight
   }
 });
 
