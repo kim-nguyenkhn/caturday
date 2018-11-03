@@ -7,7 +7,7 @@ import AddListScreen from "./screens/AddListScreen";
 
 const COLOR_MAGENTA = "#ca2779";
 const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql"
+  uri: "http://localhost:4000/graphql" // TODO: need to fix this. the issue is, if we use a phone, then the phone has a different IP than the server.
 });
 
 // Define routes
@@ -17,8 +17,9 @@ const RouteConfig = createStackNavigator(
     AddList: { screen: AddListScreen }
   },
   {
-    // Define shared header configs
     initialRouteName: "Home",
+
+    // Define shared header configs
     navigationOptions: {
       headerStyle: {
         backgroundColor: COLOR_MAGENTA

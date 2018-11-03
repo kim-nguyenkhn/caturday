@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import Button from "react-native-button";
 import { Constants } from "expo";
+import ListCard from "../components/ListCard";
 
 const GET_LISTS = gql`
   {
@@ -13,9 +13,15 @@ const GET_LISTS = gql`
     }
   }
 `;
+
 class HomeScreen extends Component {
   static navigationOptions = {
     title: "Caturday"
+  };
+
+  handlePress = () => {
+    const { navigate } = this.props.navigation;
+    navigate("AddList", { data: "Cats" });
   };
 
   render() {
@@ -25,21 +31,7 @@ class HomeScreen extends Component {
       <View style={styles.container}>
         <View style={styles.statusBar} />
         <View style={styles.mainContent}>
-          <View>
-            <Button
-              onPress={() => navigate("AddList", { data: "Cats" })}
-              style={{
-                color: "#000",
-                backgroundColor: "#fff",
-                fontSize: 25,
-                borderWidth: 1,
-                textAlign: "left",
-                padding: 20
-              }}
-            >
-              + New List
-            </Button>
-          </View>
+          <ListCard handlePress={this.handlePress}>+ New List</ListCard>
           <Query query={GET_LISTS}>
             {({ loading, error, data }) => {
               if (loading) return <Text>Loading...</Text>;
@@ -52,7 +44,7 @@ class HomeScreen extends Component {
               return (
                 <View>
                   {data.lists.map(list => (
-                    <Text key={list.id}>{list.title}</Text>
+                    <ListCard key={list.id}>{list.title}</ListCard>
                   ))}
                 </View>
               );
