@@ -7,7 +7,7 @@ import { Constants } from "expo";
 
 const GET_LISTS = gql`
   {
-    getLists {
+    lists {
       id
       title
     }
@@ -17,9 +17,6 @@ class HomeScreen extends Component {
   static navigationOptions = {
     title: "Caturday"
   };
-
-  // TODO: make a query to /graphql for the lists
-  // https://www.apollographql.com/docs/react/essentials/get-started.html#request
 
   render() {
     const { navigate } = this.props.navigation;
@@ -50,8 +47,15 @@ class HomeScreen extends Component {
                 console.log(error);
                 return <Text>Error</Text>;
               }
+              // TODO: https://www.apollographql.com/docs/react/essentials/queries.html
               console.log(data);
-              return <Text>Yay request complete!</Text>;
+              return (
+                <View>
+                  {data.lists.map(list => (
+                    <Text key={list.id}>{list.title}</Text>
+                  ))}
+                </View>
+              );
             }}
           </Query>
         </View>

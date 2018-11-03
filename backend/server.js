@@ -7,8 +7,8 @@ const PORT = 4000;
 // GraphQL schema
 const schema = buildSchema(`
   type Query {
-    getListById(id: Int!): List
-    getLists: [List]
+    list(id: Int!): List
+    lists: [List]
   }
   type Mutation {
     updateList(id: Int!, title: String!): List
@@ -33,13 +33,13 @@ const LISTS_COLLECTION = [
 
 // Root resolver
 const root = {
-  getListById: args => {
+  list: args => {
     const id = args.id;
     return LISTS_COLLECTION.filter(list => {
       return list.id === id;
     })[0];
   },
-  getLists: () => LISTS_COLLECTION,
+  lists: () => LISTS_COLLECTION,
   updateList: ({ id, message }) => {}
 };
 
