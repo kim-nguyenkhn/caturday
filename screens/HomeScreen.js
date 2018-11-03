@@ -1,8 +1,18 @@
 import React, { Component } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
 import Button from "react-native-button";
 import { Constants } from "expo";
 
+const GET_LISTS = gql`
+  {
+    getLists {
+      id
+      title
+    }
+  }
+`;
 class HomeScreen extends Component {
   static navigationOptions = {
     title: "Caturday"
@@ -13,6 +23,7 @@ class HomeScreen extends Component {
 
   render() {
     const { navigate } = this.props.navigation;
+
     return (
       <View style={styles.container}>
         <View style={styles.statusBar} />
@@ -32,6 +43,17 @@ class HomeScreen extends Component {
               + New List
             </Button>
           </View>
+          <Query query={GET_LISTS}>
+            {({ loading, error, data }) => {
+              if (loading) return <Text>Loading...</Text>;
+              if (error) {
+                console.log(error);
+                return <Text>Error</Text>;
+              }
+              console.log(data);
+              return <Text>Yay request complete!</Text>;
+            }}
+          </Query>
         </View>
       </View>
     );
