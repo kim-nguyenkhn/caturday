@@ -8,6 +8,9 @@ class HomeScreen extends Component {
     title: "Caturday"
   };
 
+  // TODO: make a query to /graphql for the lists
+  // https://www.apollographql.com/docs/react/essentials/get-started.html#request
+
   render() {
     const { navigate } = this.props.navigation;
     return (

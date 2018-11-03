@@ -9,8 +9,12 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "apollo-boost": "0.1.19",
+    "apollo-client": "2.4.5",
     "expo": "^30.0.1",
+    "graphql": "14.0.2",
     "react": "16.3.1",
+    "react-apollo": "2.2.4",
     "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
     "react-native-button": "2.3.0",
     "react-navigation": "2.18.2"

@@ -1,17 +1,17 @@
-/**
- * Notes:
- * Expo StatusBar: https://docs.expo.io/versions/latest/guides/configuring-statusbar
- */
-
-// import React, { Component } from "react";
+import React from "react";
 import { createStackNavigator } from "react-navigation";
+import { ApolloProvider } from "react-apollo";
+import ApolloClient from "apollo-boost";
 import HomeScreen from "./screens/HomeScreen";
 import AddListScreen from "./screens/AddListScreen";
 
 const COLOR_MAGENTA = "#ca2779";
+const client = new ApolloClient({
+  uri: "http://localhost:4000/graphql"
+});
 
 // Define routes
-const App = createStackNavigator(
+const RouteConfig = createStackNavigator(
   {
     Home: { screen: HomeScreen },
     AddList: { screen: AddListScreen }
@@ -27,4 +27,11 @@ const App = createStackNavigator(
     }
   }
 );
-export default App;
+
+const ApolloApp = () => (
+  <ApolloProvider client={client}>
+    <RouteConfig />
+  </ApolloProvider>
+);
+
+export default ApolloApp;
