@@ -2,11 +2,13 @@ const express = require("express");
 const expressGraphQL = require("express-graphql");
 const { buildSchema } = require("graphql");
 
+const PORT = 4000;
+
 // GraphQL schema
 const schema = buildSchema(`
   type Query {
-    list(id: Int!): List
-    lists(title: String): [List]
+    getListById(id: Int!): List
+    getLists: [List]
   }
   type Mutation {
     updateList(id: Int!, title: String!): List
@@ -31,7 +33,13 @@ const LISTS_COLLECTION = [
 
 // Root resolver
 const root = {
-  getLists: args => LISTS_COLLECTION,
+  getListById: args => {
+    const id = args.id;
+    return LISTS_COLLECTION.filter(list => {
+      return list.id === id;
+    })[0];
+  },
+  getLists: () => LISTS_COLLECTION,
   updateList: ({ id, message }) => {}
 };
 
@@ -46,6 +54,6 @@ app.use(
   })
 );
 
-app.listen(4000, () =>
-  console.log("Express GraphQL server now running on localhost:3000/graphql")
+app.listen(PORT, () =>
+  console.log(`Express GraphQL server now running on localhost:${PORT}/graphql`)
 );
