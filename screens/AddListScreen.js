@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-
 import { TextInput, View } from "react-native";
+import gql from "graphql-tag";
+
+const CREATE_LIST = gql``;
 
 class AddListScreen extends Component {
   static navigationOptions = ({ navigation }) => {

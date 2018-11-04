@@ -7,11 +7,12 @@ const PORT = 4000;
 // GraphQL schema
 const schema = buildSchema(`
   type Query {
-    list(id: Int!): List
-    lists: [List]
+    list(id: Int!): List!
+    lists: [List]!
   }
   type Mutation {
-    updateList(id: Int!, title: String!): List
+    createList(title: String!): List!
+    updateList(id: Int!, title: String!): List!
   }
   type List {
     id: Int
@@ -40,6 +41,14 @@ const root = {
     })[0];
   },
   lists: () => LISTS_COLLECTION,
+  createList: ({ title }) => {
+    const newList = {
+      id: LISTS_COLLECTION.length + 1,
+      title
+    };
+    LISTS_COLLECTION.push(newList);
+    return newList;
+  },
   updateList: ({ id, message }) => {}
 };
 
