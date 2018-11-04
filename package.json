@@ -1,8 +1,9 @@
 {
-  "name": "empty-project-template",
+  "name": "caturday",
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "scripts": {
+    "setup": "npm i && cd backend && npm i",
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",

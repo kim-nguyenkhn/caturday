@@ -30,6 +30,7 @@ class HomeScreen extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.statusBar} />
+        {/* TODO: This should be a scrollview methinks */}
         <View style={styles.mainContent}>
           <ListCard handlePress={this.handlePress}>+ New List</ListCard>
           <Query query={GET_LISTS}>
