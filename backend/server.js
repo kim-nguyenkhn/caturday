@@ -14,9 +14,15 @@ const schema = buildSchema(`
     createList(title: String!): List!
     updateList(id: Int!, title: String!): List!
   }
+
   type List {
     id: Int
     title: String
+  }
+  type ListItem {
+    id: Int
+    title: String
+    isChecked: Boolean
   }
 `);
 
