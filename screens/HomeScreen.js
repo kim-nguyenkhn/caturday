@@ -5,8 +5,8 @@ import gql from "graphql-tag";
 import { Constants } from "expo";
 import ListCard from "../components/ListCard";
 
-const GET_LISTS = gql`
-  {
+const GET_LISTS_QUERY = gql`
+  query GET_LISTS_QUERY {
     lists {
       id
       title

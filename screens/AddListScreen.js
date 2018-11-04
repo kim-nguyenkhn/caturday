@@ -2,7 +2,18 @@ import React, { Component } from "react";
 import { TextInput, View } from "react-native";
 import gql from "graphql-tag";
 
-const CREATE_LIST = gql``;
+const CREATE_LIST_MUTATION = gql`
+  mutation CREATE_LIST_MUTATION(
+    # Define the arguments passed-in
+    $title: String!
+  ) {
+    # Run this mutation
+    createList(title: $title) {
+      # Return the id once it's created
+      id
+    }
+  }
+`;
 
 class AddListScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -15,6 +26,10 @@ class AddListScreen extends Component {
     listTitle: ""
   };
   render() {
+    // TODO: Wrap the JSX in a Mutation component
+    // TODO: Define when a save should be "executed"
+    // TODO: Save the list in the db
+    // https://www.apollographql.com/docs/react/essentials/mutations.html
     return (
       <View style={{ padding: 20 }}>
         <TextInput
