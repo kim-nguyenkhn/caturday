@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import { Constants } from "expo";
@@ -36,7 +36,6 @@ class HomeScreen extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.statusBar} />
-        {/* TODO: This should be a scrollview methinks */}
         <View style={styles.mainContent}>
           <Mutation mutation={CLEAN_DB_MUTATION}>
             {(cleanDB, { loading, error }) => (
@@ -48,29 +47,31 @@ class HomeScreen extends Component {
                   console.log(res);
                 }}
               >
-                Clean DB
+                &gt;CLEAN DB&lt;
               </ListCard>
             )}
           </Mutation>
           <ListCard handlePress={this.handlePress}>+ New List</ListCard>
-          <Query query={GET_LISTS_QUERY}>
-            {({ loading, error, data }) => {
-              if (loading) return <Text>Loading...</Text>;
-              if (error) {
-                console.log(error);
-                return <Text>Error</Text>;
-              }
-              // TODO: https://www.apollographql.com/docs/react/essentials/queries.html
-              console.log(data);
-              return (
-                <View>
-                  {data.lists.map(list => (
-                    <ListCard key={list.id}>{list.title}</ListCard>
-                  ))}
-                </View>
-              );
-            }}
-          </Query>
+          <ScrollView>
+            <Query query={GET_LISTS_QUERY}>
+              {({ loading, error, data }) => {
+                if (loading) return <Text>Loading...</Text>;
+                if (error) {
+                  console.log(error);
+                  return <Text>Error</Text>;
+                }
+                // TODO: https://www.apollographql.com/docs/react/essentials/queries.html
+                console.log(data);
+                return (
+                  <View>
+                    {data.lists.map(list => (
+                      <ListCard key={list.id}>{list.title}</ListCard>
+                    ))}
+                  </View>
+                );
+              }}
+            </Query>
+          </ScrollView>
         </View>
       </View>
     );
