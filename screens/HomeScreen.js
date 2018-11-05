@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  ImageBackground,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
+} from "react-native";
 import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import { Constants } from "expo";
@@ -35,10 +42,15 @@ class HomeScreen extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.statusBar} />
-        <View style={styles.mainContent}>
+        {/* <View style={styles.statusBar} /> */}
+
+        <ImageBackground
+          source={require("../assets/mockups/caturday_splash.png")}
+          style={styles.mainContent}
+        >
           <Mutation mutation={CLEAN_DB_MUTATION}>
             {(cleanDB, { loading, error }) => (
+              // TODO: Perhaps make this a statusBar button
               <ListCard
                 handlePress={async () => {
                   const res = await cleanDB({
@@ -52,27 +64,32 @@ class HomeScreen extends Component {
             )}
           </Mutation>
           <ListCard handlePress={this.handlePress}>+ New List</ListCard>
-          <ScrollView>
-            <Query query={GET_LISTS_QUERY}>
-              {({ loading, error, data }) => {
-                if (loading) return <Text>Loading...</Text>;
-                if (error) {
-                  console.log(error);
-                  return <Text>Error</Text>;
-                }
-                // TODO: https://www.apollographql.com/docs/react/essentials/queries.html
-                console.log(data);
-                return (
-                  <View>
-                    {data.lists.map(list => (
-                      <ListCard key={list.id}>{list.title}</ListCard>
-                    ))}
-                  </View>
-                );
-              }}
-            </Query>
-          </ScrollView>
-        </View>
+          <Query query={GET_LISTS_QUERY}>
+            {({ loading, error, data }) => {
+              if (loading) return <Text>Loading...</Text>;
+              if (error) {
+                console.log(error);
+                return <Text>Error</Text>;
+              }
+              return (
+                <ScrollView
+                  refreshControl={
+                    // TODO: pull-to-refresh, this doesn't seem to work well
+                    // Also, does this even make sense with our UX? lol
+                    <RefreshControl
+                      refreshing={data.networkStatus === 4}
+                      onRefresh={data.refresh}
+                    />
+                  }
+                >
+                  {data.lists.map(list => (
+                    <ListCard key={list.id}>{list.title}</ListCard>
+                  ))}
+                </ScrollView>
+              );
+            }}
+          </Query>
+        </ImageBackground>
       </View>
     );
   }
@@ -84,11 +101,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   statusBar: {
-    height: Constants.statusBarHeight
+    // height: Constants.statusBarHeight
   },
   mainContent: {
     padding: 20,
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    width: "100%",
+    height: "100%"
   }
 });
 

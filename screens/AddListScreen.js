@@ -29,10 +29,6 @@ class AddListScreen extends Component {
     title: ""
   };
   render() {
-    // TODO: Wrap the JSX in a Mutation component
-    // TODO: Define when a save should be "executed"
-    // TODO: Save the list in the db
-    // https://www.apollographql.com/docs/react/essentials/mutations.html
     return (
       <Mutation mutation={CREATE_LIST_MUTATION} variables={this.state}>
         {(createList, { loading, error }) => (

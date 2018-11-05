@@ -15,6 +15,7 @@ export default class ListCard extends Component {
   }
 }
 
+// TODO: Associate a tabColor with a List in DB?
 const generateRandomColor = () => {
   let letters = "0123456789ABCDEF";
   let color = "#";
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
   view: {
     borderLeftWidth: 5,
     marginBottom: 10,
-    backgroundColor: "#fff",
+    backgroundColor: "rgba(255, 255, 255, 0.75)",
     shadowColor: "#111",
     shadowOffset: {
       height: 3

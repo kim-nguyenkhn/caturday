@@ -22,7 +22,8 @@ const RouteConfig = createStackNavigator(
     // Define shared header configs
     navigationOptions: {
       headerStyle: {
-        backgroundColor: COLOR_MAGENTA
+        backgroundColor: COLOR_MAGENTA,
+        borderBottomWidth: 0
       },
       headerTintColor: "#fff"
     }
