@@ -38,13 +38,16 @@ class AddListScreen extends Component {
         {(createList, { loading, error }) => (
           <View style={{ padding: 20 }}>
             <NavigationEvents
-              onWillBlur={async payload => {
-                // create the List as the screen is blurring, or navigating away
-                const res = await createList({
-                  // Update the lists after mutating
-                  refetchQueries: [{ query: GET_LISTS_QUERY }]
-                });
-                console.log(res);
+              onWillBlur={async () => {
+                // Do some validation
+                if (this.state.title) {
+                  // create the List as the screen is blurring, or navigating away
+                  const res = await createList({
+                    // Update the lists after mutating
+                    refetchQueries: [{ query: GET_LISTS_QUERY }]
+                  });
+                  console.log(res);
+                }
               }}
             />
             <TextInput
