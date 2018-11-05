@@ -1,14 +1,11 @@
-const express = require("express");
-const expressGraphQL = require("express-graphql");
+const { GraphQLServer } = require("graphql-yoga");
 const { buildSchema } = require("graphql");
 
-const PORT = 4000;
-
-// GraphQL schema
+// GraphQL schema - could later be moved out to its own .graphql file
 const schema = buildSchema(`
   type Query {
-    list(id: Int!): List!
-    lists: [List]!
+    list(id: Int!): List
+    lists: [List]
   }
   type Mutation {
     createList(title: String!): List!
@@ -40,7 +37,7 @@ let LISTS_COLLECTION = [
 ];
 
 // Root resolver
-const root = {
+const resolvers = {
   list: args => {
     const id = args.id;
     return LISTS_COLLECTION.filter(list => {
@@ -63,17 +60,25 @@ const root = {
   }
 };
 
-// Create an express server & GraphQL endpoint
-var app = express();
-app.use(
-  "/graphql",
-  expressGraphQL({
-    schema: schema,
-    rootValue: root,
-    graphiql: true
-  })
-);
-
-app.listen(PORT, () =>
-  console.log(`Express GraphQL server now running on localhost:${PORT}/graphql`)
-);
+const server = new GraphQLServer({
+  schema,
+  resolvers
+  // resolverValidationOptions: {
+  //   requireResolversForResolveType: false
+  // }
+});
+const graphQLYogaOptions = {
+  port: 4000,
+  endpoint: "/graphql",
+  subscriptions: "/subscriptions",
+  playground: "/playground",
+  cors: {
+    credentials: true,
+    origin: "http://localhost:4000"
+  }
+};
+server.start(graphQLYogaOptions, () => {
+  console.log(
+    `Server is now running on port http://localhost:${graphQLYogaOptions.port}`
+  );
+});

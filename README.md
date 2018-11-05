@@ -1,6 +1,6 @@
 # caturday
 
-Mobile task-tracking app built with React Native & GraphQL.
+Mobile task-tracking app built with React Native, Apollo-Client, & GraphQL-Yoga.
 
 ## Getting Started
 
@@ -16,11 +16,11 @@ cd backend/ && npm start
 npm start
 ```
 
-## Testing out GraphQL requests
+## GraphQL Playground
 
-Go to http://localhost:4000/graphql to open the in-browser GraphQL IDE. See [the GraphiQL docs](https://github.com/graphql/graphiql) for more info.
+Go to http://localhost:4000/playground to open the in-browser GraphQL Playground. There, you can write your own queries & mutations.
 
-There, you can view the Schema on the right, and try out queries/mutations yourself.
+Read [here](https://github.com/prisma/graphql-yoga#workflow) for more information. 
 
 ## Project Structure
 

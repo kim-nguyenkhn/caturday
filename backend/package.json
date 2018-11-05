@@ -11,9 +11,8 @@
   "author": "Kim H. Nguyen <knguyen1@paypal.com> (http://github.paypal.com/knguyen1)",
   "license": "MIT",
   "dependencies": {
-    "express": "4.16.4",
-    "express-graphql": "0.7.1",
     "graphql": "14.0.2",
+    "graphql-yoga": "1.16.7",
     "nodemon": "1.18.5"
   }
 }
