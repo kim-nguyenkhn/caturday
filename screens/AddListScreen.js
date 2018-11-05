@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { TextInput, View } from "react-native";
+import { NavigationEvents } from "react-navigation";
+import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
+import { GET_LISTS_QUERY } from "./HomeScreen";
 
 const CREATE_LIST_MUTATION = gql`
   mutation CREATE_LIST_MUTATION(
@@ -23,7 +26,7 @@ class AddListScreen extends Component {
   };
 
   state = {
-    listTitle: ""
+    title: ""
   };
   render() {
     // TODO: Wrap the JSX in a Mutation component
@@ -31,17 +34,31 @@ class AddListScreen extends Component {
     // TODO: Save the list in the db
     // https://www.apollographql.com/docs/react/essentials/mutations.html
     return (
-      <View style={{ padding: 20 }}>
-        <TextInput
-          style={{ height: 40, fontSize: 20 }}
-          onChangeText={listTitle => {
-            this.setState({ listTitle });
-            this.props.navigation.setParams({ listTitle });
-          }}
-          placeholder="List name"
-          value={this.state.listTitle}
-        />
-      </View>
+      <Mutation mutation={CREATE_LIST_MUTATION} variables={this.state}>
+        {(createList, { loading, error }) => (
+          <View style={{ padding: 20 }}>
+            <NavigationEvents
+              onWillBlur={async payload => {
+                // create the List as the screen is blurring, or navigating away
+                const res = await createList({
+                  // Update the lists after mutating
+                  refetchQueries: [{ query: GET_LISTS_QUERY }]
+                });
+                console.log(res);
+              }}
+            />
+            <TextInput
+              style={{ height: 40, fontSize: 20 }}
+              onChangeText={title => {
+                this.setState({ title });
+                this.props.navigation.setParams({ title: title });
+              }}
+              placeholder="List Title"
+              value={this.state.title}
+            />
+          </View>
+        )}
+      </Mutation>
     );
   }
 }

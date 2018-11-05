@@ -13,6 +13,7 @@ const schema = buildSchema(`
   type Mutation {
     createList(title: String!): List!
     updateList(id: Int!, title: String!): List!
+    cleanDB: Boolean
   }
 
   type List {
@@ -27,7 +28,7 @@ const schema = buildSchema(`
 `);
 
 // TEMP: Simulating a DB
-const LISTS_COLLECTION = [
+let LISTS_COLLECTION = [
   {
     id: 1,
     title: "Kitties"
@@ -55,7 +56,11 @@ const root = {
     LISTS_COLLECTION.push(newList);
     return newList;
   },
-  updateList: ({ id, message }) => {}
+  updateList: ({ id, message }) => {},
+  cleanDB: () => {
+    LISTS_COLLECTION = [];
+    return true;
+  }
 };
 
 // Create an express server & GraphQL endpoint

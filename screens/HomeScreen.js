@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text } from "react-native";
-import { Query } from "react-apollo";
+import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import { Constants } from "expo";
 import ListCard from "../components/ListCard";
@@ -11,6 +11,12 @@ const GET_LISTS_QUERY = gql`
       id
       title
     }
+  }
+`;
+
+const CLEAN_DB_MUTATION = gql`
+  mutation CLEAN_DB_MUTATION {
+    cleanDB # simply clean the DB, and expect no response
   }
 `;
 
@@ -32,8 +38,22 @@ class HomeScreen extends Component {
         <View style={styles.statusBar} />
         {/* TODO: This should be a scrollview methinks */}
         <View style={styles.mainContent}>
+          <Mutation mutation={CLEAN_DB_MUTATION}>
+            {(cleanDB, { loading, error }) => (
+              <ListCard
+                handlePress={async () => {
+                  const res = await cleanDB({
+                    refetchQueries: [{ query: GET_LISTS_QUERY }]
+                  });
+                  console.log(res);
+                }}
+              >
+                Clean DB
+              </ListCard>
+            )}
+          </Mutation>
           <ListCard handlePress={this.handlePress}>+ New List</ListCard>
-          <Query query={GET_LISTS}>
+          <Query query={GET_LISTS_QUERY}>
             {({ loading, error, data }) => {
               if (loading) return <Text>Loading...</Text>;
               if (error) {
@@ -72,3 +92,6 @@ const styles = StyleSheet.create({
 });
 
 export default HomeScreen;
+
+// default is already used, so we use a named export
+export { GET_LISTS_QUERY };
