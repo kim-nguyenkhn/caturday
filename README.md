@@ -2,6 +2,8 @@
 
 Mobile task-tracking app built with React Native, Apollo-Client, & GraphQL-Yoga.
 
+![Caturday Screenshot](assets/Demo_Nov6.png)
+
 ## Getting Started
 
 Requires `Node >= v8` & `npm >= v5`.
@@ -26,7 +28,8 @@ Read [here](https://github.com/prisma/graphql-yoga#workflow) for more informatio
 
 - caturday
   - [assets/](assets/): Various assets, such as images, used in the app.
-  - [backend/](backend/): Express-GraphQL backend. Should be run parallel with the frontend Expo app.
+  - [backend/](backend/): GraphQL-Yoga backend. Should be run parallel with the frontend Expo app.
   - [components/](components/): Reusable-ish components.
   - [screens/](screens/): Each screen will have a home here. 
   - [App.js](App.js): Entry point for the app. Inlcudes the Apollo client setup & React Navigation routing.
+
