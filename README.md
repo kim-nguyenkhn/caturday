@@ -2,7 +2,7 @@
 
 Mobile task-tracking app built with React Native, Apollo-Client, & GraphQL-Yoga.
 
-![Caturday Screenshot](assets/Demo_Nov6.png)
+<img alt="Caturday Screenshot" src="assets/Demo_Nov6.png" height="500" />
 
 ## Getting Started
 
