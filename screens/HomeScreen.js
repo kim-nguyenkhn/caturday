@@ -3,6 +3,7 @@ import {
   ImageBackground,
   RefreshControl,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   View
@@ -42,11 +43,13 @@ class HomeScreen extends Component {
 
     return (
       <View style={styles.container}>
-        {/* <View style={styles.statusBar} /> */}
-
+        <StatusBar barStyle="light-content" />
         <ImageBackground
-          source={require("../assets/mockups/caturday_splash.png")}
+          source={require("../assets/kittybackground.png")}
           style={styles.mainContent}
+          imageStyle={{
+            resizeMode: "cover"
+          }}
         >
           <Mutation mutation={CLEAN_DB_MUTATION}>
             {(cleanDB, { loading, error }) => (
