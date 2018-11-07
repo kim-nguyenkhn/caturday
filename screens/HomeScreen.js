@@ -34,8 +34,7 @@ class HomeScreen extends Component {
   };
 
   handlePress = () => {
-    const { navigate } = this.props.navigation;
-    navigate("AddList", { data: "Cats" });
+    this.props.navigation.navigate("AddList", { data: "Cats" });
   };
 
   render() {

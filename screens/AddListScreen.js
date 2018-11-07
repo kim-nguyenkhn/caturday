@@ -1,9 +1,17 @@
 import React, { Component } from "react";
-import { TextInput, View } from "react-native";
+import {
+  FlatList,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
+} from "react-native";
 import { NavigationEvents } from "react-navigation";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import { GET_LISTS_QUERY } from "./HomeScreen";
+import TaskList from "../components/TaskList";
 
 const CREATE_LIST_MUTATION = gql`
   mutation CREATE_LIST_MUTATION(
@@ -26,7 +34,12 @@ class AddListScreen extends Component {
   };
 
   state = {
-    title: ""
+    title: "",
+    tasks: [
+      { id: 1, title: "Buy a kitty", isChecked: false },
+      { id: 2, title: "Feed a kitty", isChecked: false },
+      { id: 3, title: "Pet a kitty", isChecked: false }
+    ]
   };
   render() {
     return (
@@ -55,6 +68,8 @@ class AddListScreen extends Component {
               placeholder="List Title"
               value={this.state.title}
             />
+            {/* TODO: Add some mechanism to add tasks to this list */}
+            <TaskList data={this.state.tasks} />
           </View>
         )}
       </Mutation>

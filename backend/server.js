@@ -4,11 +4,13 @@ const { GraphQLServer } = require("graphql-yoga");
 let LISTS_COLLECTION = [
   {
     id: 1,
-    title: "Kitties"
+    title: "Kitties",
+    tasks: []
   },
   {
     id: 2,
-    title: "Groceries"
+    title: "Groceries",
+    tasks: []
   }
 ];
 
@@ -25,10 +27,11 @@ const typeDefs = `
   }
 
   type List {
-    id: Int
-    title: String
+    id: Int!
+    title: String!
+    tasks: [Task]
   }
-  type ListItem {
+  type Task {
     id: Int
     title: String
     isChecked: Boolean
