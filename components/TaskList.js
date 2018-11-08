@@ -7,10 +7,9 @@ class TaskList extends Component {
     isChecked: {}
   };
 
-  _keyExtractor = (item, index) => item.id.toString();
+  keyExtractor = (item, index) => item.id.toString();
 
-  _onPressItem = id => {
-    console.log("onPressItem");
+  onPressItem = id => {
     this.setState(state => {
       // copy the map rather than modify the state
       const isChecked = state.isChecked;
@@ -19,11 +18,11 @@ class TaskList extends Component {
     });
   };
 
-  _renderItem = ({ item }) => (
+  renderItem = ({ item }) => (
     <TaskItem
       id={item.id}
       title={item.title}
-      onPressItem={this._onPressItem}
+      onPressItem={this.onPressItem}
       isChecked={!!this.state.isChecked[item.id]}
     />
   );
@@ -34,8 +33,8 @@ class TaskList extends Component {
       <FlatList
         data={data}
         extraData={this.state}
-        keyExtractor={this._keyExtractor}
-        renderItem={this._renderItem}
+        keyExtractor={this.keyExtractor}
+        renderItem={this.renderItem}
       />
     );
   }
