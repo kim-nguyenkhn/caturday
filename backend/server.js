@@ -79,7 +79,7 @@ const server = new GraphQLServer({
 
 // Define some options for the server
 const graphQLYogaOptions = {
-  port: 4000,
+  port: process.env.PORT || 4000, // process.env.PORT lets the port be set by Heroku
   endpoint: "/graphql",
   subscriptions: "/subscriptions",
   playground: "/playground",
