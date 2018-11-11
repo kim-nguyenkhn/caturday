@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {
   FlatList,
+  ImageBackground,
   ScrollView,
   Text,
   TextInput,
@@ -36,7 +37,7 @@ class AddListScreen extends Component {
   state = {
     title: "",
     tasks: [
-      { id: 1, title: "Buy a kitty", isChecked: false },
+      { id: 1, title: "Adopt a kitty", isChecked: false },
       { id: 2, title: "Feed a kitty", isChecked: false },
       { id: 3, title: "Pet a kitty", isChecked: false }
     ]
@@ -45,32 +46,44 @@ class AddListScreen extends Component {
     return (
       <Mutation mutation={CREATE_LIST_MUTATION} variables={this.state}>
         {(createList, { loading, error }) => (
-          <View style={{ padding: 20 }}>
-            <NavigationEvents
-              onWillBlur={async () => {
-                // Do some validation
-                if (this.state.title) {
-                  // create the List as the screen is blurring, or navigating away
-                  const res = await createList({
-                    // Update the lists after mutating
-                    refetchQueries: [{ query: GET_LISTS_QUERY }]
-                  });
-                  console.log(res);
-                }
-              }}
-            />
-            <TextInput
-              style={{ height: 40, fontSize: 20 }}
-              onChangeText={title => {
-                this.setState({ title });
-                this.props.navigation.setParams({ title: title });
-              }}
-              placeholder="List Title"
-              value={this.state.title}
-            />
-            {/* TODO: Add some mechanism to add tasks to this list */}
-            <TaskList data={this.state.tasks} />
-          </View>
+          <ImageBackground
+            source={require("../assets/kittybackground.png")}
+            style={{
+              width: "100%",
+              height: "100%",
+              backgroundColor: "white"
+            }}
+            imageStyle={{
+              resizeMode: "cover"
+            }}
+          >
+            <View style={{ padding: 20 }}>
+              <NavigationEvents
+                onWillBlur={async () => {
+                  // Do some validation
+                  if (this.state.title) {
+                    // create the List as the screen is blurring, or navigating away
+                    const res = await createList({
+                      // Update the lists after mutating
+                      refetchQueries: [{ query: GET_LISTS_QUERY }]
+                    });
+                    console.log(res);
+                  }
+                }}
+              />
+              <TextInput
+                style={{ height: 40, fontSize: 20 }}
+                onChangeText={title => {
+                  this.setState({ title });
+                  this.props.navigation.setParams({ title: title });
+                }}
+                placeholder="List Title"
+                value={this.state.title}
+              />
+              {/* TODO: Add some mechanism to add tasks to this list */}
+              <TaskList data={this.state.tasks} />
+            </View>
+          </ImageBackground>
         )}
       </Mutation>
     );

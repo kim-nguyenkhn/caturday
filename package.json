@@ -3,9 +3,10 @@
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "scripts": {
+    "dev": "NODE_ENV=development expo start",
     "setup": "npm i && cd backend && npm i",
     "start": "cd backend && npm i && npm start",
-    "expo": "expo start",
+    "expo": "NODE_ENV=production expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject"

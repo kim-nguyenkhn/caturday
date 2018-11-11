@@ -1,18 +1,23 @@
 const { GraphQLServer } = require("graphql-yoga");
+const { generateMagenta } = require("../lib/utils");
 
 // TEMP: Simulating a DB
 let LISTS_COLLECTION = [
   {
     id: 1,
     title: "Kitties",
-    tasks: []
+    tasks: [],
+    tabColor: generateMagenta()
   },
   {
     id: 2,
     title: "Groceries",
-    tasks: []
+    tasks: [],
+    tabColor: generateMagenta()
   }
 ];
+
+console.log(LISTS_COLLECTION);
 
 // GraphQL schema definition - could later be moved out to its own schema.graphql file
 const typeDefs = `
@@ -30,6 +35,7 @@ const typeDefs = `
     id: Int!
     title: String!
     tasks: [Task]
+    tabColor: String!
   }
   type Task {
     id: Int
@@ -55,7 +61,8 @@ const resolvers = {
     createList: (parent, { title }) => {
       const newList = {
         id: LISTS_COLLECTION.length + 1,
-        title
+        title,
+        tabColor: generateMagenta()
       };
       LISTS_COLLECTION.push(newList);
       return newList;

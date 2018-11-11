@@ -18,6 +18,7 @@ const GET_LISTS_QUERY = gql`
     lists {
       id
       title
+      tabColor
     }
   }
 `;
@@ -37,34 +38,40 @@ class HomeScreen extends Component {
     this.props.navigation.navigate("AddList", { data: "Cats" });
   };
 
+  renderCleanButton = () => {
+    let isDevelopmentMode = false;
+
+    if (isDevelopmentMode) {
+      return (
+        <Mutation mutation={CLEAN_DB_MUTATION}>
+          {(cleanDB, { loading, error }) => (
+            // TODO: Perhaps make this a statusBar button
+            <ListCard
+              handlePress={async () => {
+                const res = await cleanDB({
+                  refetchQueries: [{ query: GET_LISTS_QUERY }]
+                });
+                console.log(res);
+              }}
+            >
+              &gt;CLEAN DB&lt;
+            </ListCard>
+          )}
+        </Mutation>
+      );
+    } else {
+      return null;
+    }
+  };
+
   render() {
     const { navigate } = this.props.navigation;
 
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content" />
-        <ImageBackground
-          source={require("../assets/kittybackground.png")}
-          style={styles.mainContent}
-          imageStyle={{
-            resizeMode: "cover"
-          }}
-        >
-          <Mutation mutation={CLEAN_DB_MUTATION}>
-            {(cleanDB, { loading, error }) => (
-              // TODO: Perhaps make this a statusBar button
-              <ListCard
-                handlePress={async () => {
-                  const res = await cleanDB({
-                    refetchQueries: [{ query: GET_LISTS_QUERY }]
-                  });
-                  console.log(res);
-                }}
-              >
-                &gt;CLEAN DB&lt;
-              </ListCard>
-            )}
-          </Mutation>
+        <View style={styles.mainContent}>
+          {this.renderCleanButton()}
           <ListCard handlePress={this.handlePress}>+ New List</ListCard>
           <Query query={GET_LISTS_QUERY}>
             {({ loading, error, data }) => {
@@ -85,13 +92,15 @@ class HomeScreen extends Component {
                   }
                 >
                   {data.lists.map(list => (
-                    <ListCard key={list.id}>{list.title}</ListCard>
+                    <ListCard key={list.id} tabColor={list.tabColor}>
+                      {list.title}
+                    </ListCard>
                   ))}
                 </ScrollView>
               );
             }}
           </Query>
-        </ImageBackground>
+        </View>
       </View>
     );
   }

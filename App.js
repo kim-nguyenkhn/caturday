@@ -6,8 +6,13 @@ import HomeScreen from "./screens/HomeScreen";
 import AddListScreen from "./screens/AddListScreen";
 
 const COLOR_MAGENTA = "#ca2779";
+const isDev = process.env.NODE_ENV === "development";
+
 const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql" // TODO: need to fix this. the issue is, if we use a phone, then the phone has a different IP than the server.
+  // TODO: need to fix this. the issue is, if we use a phone, then the phone has a different IP than the server.
+  uri: isDev
+    ? "http://localhost:4000/graphql"
+    : "https://caturday-12345.herokuapp.com/graphql"
 });
 
 // Define routes

@@ -33,3 +33,8 @@ Read [here](https://github.com/prisma/graphql-yoga#workflow) for more informatio
   - [screens/](screens/): Each screen will have a home here. 
   - [App.js](App.js): Entry point for the app. Inlcudes the Apollo client setup & React Navigation routing.
 
+## Heroku
+
+```
+heroku logs --app caturday-12345 --tail
+```

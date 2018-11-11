@@ -4,9 +4,11 @@ import Button from "react-native-button";
 
 export default class ListCard extends Component {
   render() {
-    const { handlePress } = this.props;
+    const { handlePress, tabColor } = this.props;
     return (
-      <View style={[styles.view, { borderLeftColor: generateRandomColor() }]}>
+      <View
+        style={[styles.view, { borderLeftColor: tabColor || "transparent" }]}
+      >
         <Button onPress={handlePress} style={styles.listCard}>
           {this.props.children}
         </Button>
@@ -15,21 +17,11 @@ export default class ListCard extends Component {
   }
 }
 
-// TODO: Associate a tabColor with a List in DB?
-const generateRandomColor = () => {
-  let letters = "0123456789ABCDEF";
-  let color = "#";
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-};
-
 const styles = StyleSheet.create({
   view: {
     borderLeftWidth: 5,
     marginBottom: 10,
-    backgroundColor: "rgba(255, 255, 255, 0.75)",
+    backgroundColor: "rgba(255, 255, 255, 1)",
     shadowColor: "#111",
     shadowOffset: {
       height: 3
