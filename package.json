@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "setup": "npm i && cd backend && npm i",
-    "start": "cd backend && npm i",
+    "start": "cd backend && npm i && npm start",
     "expo": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
