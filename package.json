@@ -9,7 +9,8 @@
     "expo": "NODE_ENV=production expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "storybook": "storybook start"
   },
   "dependencies": {
     "apollo-boost": "0.1.19",
@@ -21,5 +22,15 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
     "react-native-button": "2.3.0",
     "react-navigation": "2.18.2"
+  },
+  "devDependencies": {
+    "@storybook/react-native": "^4.0.12",
+    "@storybook/addon-actions": "^4.0.12",
+    "@storybook/addon-links": "^4.0.12",
+    "@storybook/addons": "^4.0.12",
+    "babel-core": "^6.26.3",
+    "babel-runtime": "^6.26.0",
+    "react-dom": "16.3.1",
+    "prop-types": "^15.6.2"
   }
 }
